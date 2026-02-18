@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OurPickPoint — Safe Package Collection Across Lagos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #0a3d2e;
+      --green-mid: #155e42;
+      --green-light: #1e7a54;
+      --gold: #e8a830;
+      --gold-light: #f5c34e;
+      --cream: #faf6ee;
+      --white: #ffffff;
+      --text-dark: #0d1a14;
+      --text-muted: #5a7066;
+      --border: #d4e4db;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 5%;
+      background: rgba(10, 61, 46, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(232, 168, 48, 0.2);
+    }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-logo span { color: var(--gold); }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-cta {
+      background: var(--gold);
+      color: var(--green) !important;
+      padding: 0.5rem 1.2rem;
+      border-radius: 6px;
+      font-weight: 700 !important;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh;
+      background: var(--green);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 8rem 5% 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(232,168,48,0.12) 0%, transparent 70%);
+      top: -100px; right: -100px;
+      border-radius: 50%;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(30,122,84,0.4) 0%, transparent 70%);
+      bottom: -50px; left: -80px;
+      border-radius: 50%;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(232,168,48,0.15);
+      border: 1px solid rgba(232,168,48,0.4);
+      color: var(--gold-light);
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.8rem, 6vw, 5.5rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.05;
+      letter-spacing: -2px;
+      max-width: 800px;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--gold);
+    }
+
+    .hero p {
+      margin-top: 1.5rem;
+      color: rgba(255,255,255,0.7);
+      font-size: 1.15rem;
+      max-width: 520px;
+      line-height: 1.7;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .hero-actions {
+      display: flex; gap: 1rem; margin-top: 2.5rem;
+      flex-wrap: wrap; justify-content: center;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--green);
+      padding: 0.9rem 2rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(232,168,48,0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      padding: 0.9rem 2rem;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 1rem;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,255,255,0.6);
+    }
+
+    .hero-stats {
+      display: flex; gap: 3rem; margin-top: 4rem;
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--gold);
+    }
+    .stat-label {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.8rem;
+      margin-top: 0.2rem;
+    }
+
+    /* ===== SECTION BASE ===== */
+    section { padding: 6rem 5%; }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green-light);
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      color: var(--green);
+      letter-spacing: -1px;
+      line-height: 1.1;
+    }
+
+    .section-sub {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      max-width: 520px;
+      margin-top: 0.8rem;
+    }
+
+    /* ===== HOW IT WORKS ===== */
+    .how {
+      background: var(--white);
+    }
+
+    .how-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .how-header { margin-bottom: 4rem; }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+    }
+
+    .step {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .step:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(10,61,46,0.1);
+    }
+
+    .step-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 4rem;
+      font-weight: 800;
+      color: var(--gold);
+      opacity: 0.25;
+      position: absolute;
+      top: 1rem; right: 1.2rem;
+      line-height: 1;
+    }
+
+    .step-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .step h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 0.6rem;
+    }
+
+    .step p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.65;
+    }
+
+    /* ===== TRACK ===== */
+    .track {
+      background: var(--green);
+      text-align: center;
+    }
+
+    .track .section-tag { color: var(--gold-light); }
+    .track .section-title { color: var(--white); }
+    .track .section-sub { color: rgba(255,255,255,0.65); margin: 0.8rem auto 0; }
+
+    .track-form {
+      display: flex;
+      gap: 0;
+      max-width: 520px;
+      margin: 2.5rem auto 0;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+    }
+
+    .track-input {
+      flex: 1;
+      padding: 1rem 1.2rem;
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      outline: none;
+      background: var(--white);
+      color: var(--text-dark);
+    }
+
+    .track-input::placeholder { color: #aaa; }
+
+    .track-btn {
+      background: var(--gold);
+      color: var(--green);
+      border: none;
+      padding: 1rem 1.5rem;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: background 0.2s;
+    }
+    .track-btn:hover { background: var(--gold-light); }
+
+    .track-result {
+      max-width: 520px;
+      margin: 1.5rem auto 0;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: left;
+      display: none;
+    }
+
+    .track-result.show { display: block; }
+
+    .track-result-label {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.3rem;
+    }
+
+    .track-result-val {
+      color: var(--white);
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    .status-inbound { background: rgba(232,168,48,0.2); color: var(--gold-light); }
+    .status-ready { background: rgba(30,122,84,0.3); color: #6ee7b7; }
+    .status-collected { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.6); }
+
+    /* ===== LOCATIONS ===== */
+    .locations { background: var(--cream); }
+
+    .locations-inner { max-width: 1100px; margin: 0 auto; }
+
+    .lga-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+
+    .lga-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .lga-card:hover {
+      border-color: var(--green-light);
+      transform: translateY(-2px);
+    }
+
+    .lga-dot {
+      width: 10px; height: 10px;
+      background: var(--gold);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .lga-name {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--green);
+    }
+
+    .lga-coming {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    /* ===== WHY ===== */
+    .why { background: var(--white); }
+    .why-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .why-inner { grid-template-columns: 1fr; gap: 3rem; }
+    }
+
+    .why-cards { display: flex; flex-direction: column; gap: 1rem; }
+
+    .why-card {
+      background: var(--cream);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 10px 10px 0;
+      padding: 1.2rem 1.5rem;
+    }
+
+    .why-card h4 {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 0.3rem;
+    }
+
+    .why-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ===== REGISTER ===== */
+    .register {
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-mid) 100%);
+      text-align: center;
+    }
+
+    .register .section-title { color: var(--white); }
+    .register .section-sub { color: rgba(255,255,255,0.7); margin: 0.8rem auto 0; }
+
+    .register-form {
+      max-width: 480px;
+      margin: 2.5rem auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .reg-row { display: flex; gap: 1rem; }
+
+    .form-input {
+      width: 100%;
+      padding: 0.9rem 1.1rem;
+      border-radius: 8px;
+      border: 1.5px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.08);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-input::placeholder { color: rgba(255,255,255,0.4); }
+    .form-input:focus { border-color: var(--gold); }
+
+    select.form-input option { background: var(--green); color: var(--white); }
+
+    .form-note {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.4);
+      margin-top: 0.5rem;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--text-dark);
+      color: rgba(255,255,255,0.6);
+      padding: 3rem 5%;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-logo span { color: var(--gold); }
+
+    footer p { font-size: 0.85rem; line-height: 1.7; max-width: 400px; margin: 0 auto; }
+
+    .footer-links {
+      display: flex; justify-content: center; gap: 2rem;
+      margin: 1.5rem 0;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+
+    .footer-bottom {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.78rem;
+    }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== HAMBURGER (mobile) ===== */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--white); border-radius: 2px;
+    }
+
+    @media (max-width: 700px) {
+      .hamburger { display: flex; }
+      .nav-links { display: none; }
+      .hero-stats { gap: 1.5rem; }
+    }
+
+    /* ===== NOTIFICATION ===== */
+    .notif {
+      position: fixed; bottom: 2rem; right: 2rem;
+      background: var(--green);
+      color: var(--white);
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+      border-left: 4px solid var(--gold);
+      display: none;
+      z-index: 200;
+      max-width: 300px;
+    }
+    .notif.show { display: block; animation: fadeUp 0.3s ease; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Our<span>Pick</span>Point</a>
+  <ul class="nav-links">
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#track">Track Package</a></li>
+    <li><a href="#locations">Locations</a></li>
+    <li><a href="#register" class="nav-cta">Get Started</a></li>
+  </ul>
+  <button class="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-badge">🇳🇬 Lagos State's Trusted Pickup Network</div>
+  <h1>Your Package,<br><em>Picked Up Safely.</em></h1>
+  <p>Send packages across Nigeria with confidence. OurPickPoint holds your delivery securely at a nearby location until you're ready to collect it.</p>
+  <div class="hero-actions">
+    <a href="#track" class="btn-primary">Track a Package</a>
+    <a href="#how" class="btn-outline">See How It Works</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">20</div>
+      <div class="stat-label">LGAs Covered</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Package Safety</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">24/7</div>
+      <div class="stat-label">Tracking</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="how-inner">
+    <div class="how-header">
+      <div class="section-tag">Simple Process</div>
+      <h2 class="section-title">How OurPickPoint Works</h2>
+      <p class="section-sub">No complicated setup. No missed deliveries. Just a simple, secure bridge between sender and receiver.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-icon">📦</div>
+        <h3>Sender Drops Off</h3>
+        <p>The sender or their driver drops the package at any OurPickPoint location near them. We log it as <strong>Inbound</strong> and issue a tracking code.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-icon">🔒</div>
+        <h3>We Keep It Safe</h3>
+        <p>Your package is recorded, stored securely, and the receiver gets notified instantly. No rush — collect when you're ready.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-icon">✅</div>
+        <h3>Receiver Collects</h3>
+        <p>The receiver visits the pickup point, shows their tracking code, and collects their package. We log it as <strong>Outbound</strong>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRACK -->
+<section class="track" id="track">
+  <div class="section-tag">Package Tracking</div>
+  <h2 class="section-title">Track Your Package</h2>
+  <p class="section-sub">Enter your unique tracking code to see your package status in real time.</p>
+  <div class="track-form">
+    <input class="track-input" id="trackInput" type="text" placeholder="Enter tracking code e.g. OPP-20481" maxlength="20" />
+    <button class="track-btn" onclick="trackPackage()">Track →</button>
+  </div>
+  <div class="track-result" id="trackResult">
+    <div class="track-result-label">Tracking Code</div>
+    <div class="track-result-val" id="tr-code">—</div>
+    <div class="track-result-label">Package Description</div>
+    <div class="track-result-val" id="tr-desc">—</div>
+    <div class="track-result-label">Pickup Location</div>
+    <div class="track-result-val" id="tr-loc">—</div>
+    <div class="track-result-label">Status</div>
+    <div><span class="status-badge" id="tr-status">—</span></div>
+  </div>
+</section>
+
+<!-- LOCATIONS -->
+<section class="locations" id="locations">
+  <div class="locations-inner">
+    <div class="section-tag">Our Coverage</div>
+    <h2 class="section-title">All 20 Lagos LGAs Covered</h2>
+    <p class="section-sub">OurPickPoint operates across every Local Government Area in Lagos State. Find a pickup point close to you.</p>
+
+    <div class="lga-grid">
+      <div class="lga-card"><div class="lga-dot"></div><div><div class="lga-name">Agege</div></div></div>
+      <div class="lga-card"><div class="lga-dot"></div><div><div class="lga-name">Ajeromi-Ifelodun</div></div></div>
+      <div class="lga-card"><div class="lga-dot"></div><div><div class="lga-name">Alimosho</div></div></div>
+      <div class="lga-card"><div class="lga-dot"></div><div><div class="lga-name">Amuwo-Odofin</div></div></div>
+      <div class="lga-card"><div class="lga-dot"></div><div><div class="lga-name">Apapa</div></div></div>
+      <div class="lga-card"><div class="lga-dot"></div><div><div class="lga-name">Badagry</div></div></div>
+      <div class="lga-card"><div class="lga-dot"></div><div><div class="lga-name">Epe</div></div></div>
+      <div class="lga-card"><div class="lga-dot"></div><div><div class="lga-name">Eti-Osa</div></div></div>
+      <div class="lga-card"><div class="lga-dot"></div><div><div class="lga-name">Ibeju-Lekki</div></div></div>
+      <div class="lga-card"><div class="lga-dot"></div><div><div class="lga-name">Ifako-Ijaiye</div></div></div>
+      <div class="lga-card"><div class="lga-dot"></div><div><div class="lga-name">Ikeja</div></div></div>
+      <div class="lga-card"><div class="lga-dot"></div><div><div class="lga-name">Ikorodu</div></div></div>
+      <div class="lga-card"><div class="lga-dot"></div><div><div class="lga-name">Kosofe</div></div></div>
+      <div class="lga-card"><div class="lga-dot"></div><div><div class="lga-name">Lagos Island</div></div></div>
+      <div class="lga-card"><div class="lga-dot"></div><div><div class="lga-name">Lagos Mainland</div></div></div>
+      <div class="lga-card"><div class="lga-dot"></div><div><div class="lga-name">Mushin</div></div></div>
+      <div class="lga-card"><div class="lga-dot"></div><div><div class="lga-name">Ojo</div></div></div>
+      <div class="lga-card"><div class="lga-dot"></div><div><div class="lga-name">Oshodi-Isolo</div></div></div>
+      <div class="lga-card"><div class="lga-dot"></div><div><div class="lga-name">Shomolu</div></div></div>
+      <div class="lga-card"><div class="lga-dot"></div><div><div class="lga-name">Surulere</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why">
+  <div class="why-inner">
+    <div>
+      <div class="section-tag">Why OurPickPoint</div>
+      <h2 class="section-title">Never Miss a Delivery Again</h2>
+      <p class="section-sub">In Lagos, life moves fast. You can't always be home. OurPickPoint is your reliable middle ground.</p>
+    </div>
+    <div class="why-cards">
+      <div class="why-card">
+        <h4>🏠 No More "Nobody Was Home"</h4>
+        <p>Your package waits safely at a pickup point until you have time — no re-delivery headaches.</p>
+      </div>
+      <div class="why-card">
+        <h4>📲 Real-Time Tracking</h4>
+        <p>Know exactly when your package arrives at the pickup point, when it's ready, and when it's collected.</p>
+      </div>
+      <div class="why-card">
+        <h4>🤝 We're Not a Courier</h4>
+        <p>We don't dispatch. We don't do e-commerce. We're simply the trusted middle point between sender and receiver.</p>
+      </div>
+      <div class="why-card">
+        <h4>📍 Spread Across Lagos</h4>
+        <p>All 20 LGAs are covered. There's always a pickup point close to where you live or work.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REGISTER -->
+<section class="register" id="register">
+  <div class="section-tag">Get Started</div>
+  <h2 class="section-title">Register for Early Access</h2>
+  <p class="section-sub">Be among the first to use OurPickPoint when we launch. Free to register — no payment needed.</p>
+
+  <div class="register-form">
+    <div class="reg-row">
+      <input class="form-input" type="text" placeholder="First Name" />
+      <input class="form-input" type="text" placeholder="Last Name" />
+    </div>
+    <input class="form-input" type="email" placeholder="Email Address" />
+    <input class="form-input" type="tel" placeholder="Phone Number (e.g. 0801...)" />
+    <select class="form-input">
+      <option value="" disabled selected>Select your LGA</option>
+      <option>Agege</option>
+      <option>Ajeromi-Ifelodun</option>
+      <option>Alimosho</option>
+      <option>Amuwo-Odofin</option>
+      <option>Apapa</option>
+      <option>Badagry</option>
+      <option>Epe</option>
+      <option>Eti-Osa</option>
+      <option>Ibeju-Lekki</option>
+      <option>Ifako-Ijaiye</option>
+      <option>Ikeja</option>
+      <option>Ikorodu</option>
+      <option>Kosofe</option>
+      <option>Lagos Island</option>
+      <option>Lagos Mainland</option>
+      <option>Mushin</option>
+      <option>Ojo</option>
+      <option>Oshodi-Isolo</option>
+      <option>Shomolu</option>
+      <option>Surulere</option>
+    </select>
+    <button class="btn-primary" style="width:100%;padding:1rem;" onclick="handleRegister()">Register Now — It's Free</button>
+    <p class="form-note">We will notify you by email and phone when OurPickPoint launches in your LGA.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Our<span>Pick</span>Point</div>
+  <p>Lagos State's trusted package collection network. Connecting senders and receivers — safely, simply, and securely.</p>
+  <div class="footer-links">
+    <a href="#home">Home</a>
+    <a href="#how">How It Works</a>
+    <a href="#track">Track Package</a>
+    <a href="#locations">Locations</a>
+    <a href="#register">Register</a>
+    <a href="mailto:hello@ourpickpoint.com">hello@ourpickpoint.com</a>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2024 OurPickPoint. All rights reserved. Lagos, Nigeria.
+  </div>
+</footer>
+
+<!-- NOTIFICATION -->
+<div class="notif" id="notif"></div>
+
+<script>
+  // Demo tracking data
+  const demoPackages = {
+    'OPP-20481': {
+      desc: 'Black Laptop Bag',
+      loc: 'Ikeja Pickup Point',
+      status: 'ready',
+      statusText: 'Ready for Collection'
+    },
+    'OPP-10032': {
+      desc: 'Fashion Items (3 pieces)',
+      loc: 'Surulere Pickup Point',
+      status: 'inbound',
+      statusText: 'Package Received — Awaiting Collection'
+    },
+    'OPP-88871': {
+      desc: 'Electronics Package',
+      loc: 'Lagos Island Pickup Point',
+      status: 'collected',
+      statusText: 'Collected by Receiver'
+    }
+  };
+
+  function trackPackage() {
+    const code = document.getElementById('trackInput').value.trim().toUpperCase();
+    const result = document.getElementById('trackResult');
+
+    if (!code) {
+      showNotif('Please enter a tracking code.');
+      return;
+    }
+
+    const pkg = demoPackages[code];
+
+    if (!pkg) {
+      result.classList.remove('show');
+      showNotif('❌ Tracking code not found. Try: OPP-20481, OPP-10032, or OPP-88871 for demo.');
+      return;
+    }
+
+    document.getElementById('tr-code').textContent = code;
+    document.getElementById('tr-desc').textContent = pkg.desc;
+    document.getElementById('tr-loc').textContent = pkg.loc;
+
+    const statusEl = document.getElementById('tr-status');
+    statusEl.textContent = pkg.statusText;
+    statusEl.className = 'status-badge status-' + pkg.status;
+
+    result.classList.add('show');
+    showNotif('✅ Package found!');
+  }
+
+  function handleRegister() {
+    showNotif('🎉 Thank you! We\'ll notify you when we launch in your LGA.');
+  }
+
+  function showNotif(msg) {
+    const n = document.getElementById('notif');
+    n.textContent = msg;
+    n.classList.add('show');
+    setTimeout(() => n.classList.remove('show'), 4000);
+  }
+
+  // Enter key on tracking input
+  document.getElementById('trackInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') trackPackage();
+  });
+</script>
+</body>
+</html>
